@@ -7,15 +7,16 @@ import DiscordBot.helpers.BangHighScores;
 
 public class BangScores {
 
-    public static void bangScores(MessageChannel channel, String path3, Guild guild){
+    public static void bangScores(MessageChannel channel, Guild guild){
 
-        BangHighScores highScores = GetBangScores.getBangScores(path3, guild);
+        BangHighScores highScores = GetBangScores.getBangScores(guild);
 
         if (highScores != null){
-            channel.sendMessage("The player with the most attempts is "+highScores.mostAttemptsPlayer+" with a score of "+(int)highScores.attemptCount).queue();
-            channel.sendMessage("The player with the most deaths is "+highScores.mostDeathsPlayer+" with a score of "+(int)highScores.deathCount).queue();
-            channel.sendMessage("The player with the best survival rate is "+highScores.luckiest+" at "+highScores.bestRate+"%").queue();
-            channel.sendMessage("The player with the worst survival rate is "+highScores.unluckiest+" at "+highScores.worstRate+"%").queue();
+            channel.sendMessage("The player with the most attempts is "+highScores.mostAttemptsPlayer+" with a score of "+(int)highScores.attemptCount).complete();
+            channel.sendMessage("The player with the most deaths is "+highScores.mostDeathsPlayer+" with a score of "+(int)highScores.deathCount).complete();
+            channel.sendMessage("The player with the best survival rate is "+highScores.luckiest+" at "+highScores.bestRate+"%").complete();
+            channel.sendMessage("The player with the worst survival rate is "+highScores.unluckiest+" at "+highScores.worstRate+"%").complete();
+            channel.sendMessage("The player with the most jams survived is "+highScores.mostJamsPlayer+" at "+highScores.jamCount).complete();
         }
     }
 }

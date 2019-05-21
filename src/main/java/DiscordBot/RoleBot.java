@@ -10,7 +10,7 @@ import java.util.TimerTask;
 
 public class RoleBot {
 
-	static ConfigFile config;
+	public static ConfigFile config;
 
 	public static void main(String[] args){
 
@@ -30,6 +30,7 @@ public class RoleBot {
 				}
 			};
 			timer.schedule(task,1000*60*60,1000*60*60);
+
 		}
 		
 		catch (Exception e) {
