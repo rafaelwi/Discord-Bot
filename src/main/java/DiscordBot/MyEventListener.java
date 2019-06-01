@@ -1,12 +1,15 @@
 package DiscordBot;
 
-import DiscordBot.commands.AdminCommands.*;
-import DiscordBot.commands.Bang.BangScores;
-import DiscordBot.commands.Bang.MyBang;
-import DiscordBot.commands.Bang.Roulette;
-import DiscordBot.commands.Groups.Join;
-import DiscordBot.commands.Groups.Leave;
-import DiscordBot.commands.Groups.ShowRoles;
+import DiscordBot.commands.admin_commands.*;
+import DiscordBot.commands.bang.BangScores;
+import DiscordBot.commands.bang.MyBang;
+import DiscordBot.commands.bang.Roulette;
+import DiscordBot.commands.blackjack.BlackJackCommands;
+import DiscordBot.commands.groups.Join;
+import DiscordBot.commands.groups.Leave;
+import DiscordBot.commands.groups.ShowRoles;
+import DiscordBot.commands.misc.Help;
+import DiscordBot.commands.misc.Ping;
 import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.events.DisconnectEvent;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
@@ -16,8 +19,6 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import java.util.Arrays;
 import java.util.List;
 
-import DiscordBot.commands.*;
-
 public class MyEventListener extends ListenerAdapter {
 
 	public static Guild guild;
@@ -26,8 +27,8 @@ public class MyEventListener extends ListenerAdapter {
 
 	@Override
 	public void onGuildMemberJoin(GuildMemberJoinEvent event){
-		guild.getTextChannelById(cfg.channel[0]).sendMessage("Welcome "+event.getUser().getAsMention()+
-		"feel free to ask any questions in #general!\nIf you want to play with our bot, go to #bots and say `!help` :smiley:").queue();
+		guild.getTextChannelsByName("general", true).get(0).sendMessage("Welcome "+event.getUser().getAsMention()+
+		"! Feel free to ask any questions in #general!\nIf you want to play with our bot, go to #bots and say `!help` :smiley:").queue();
 	}
 
 	@Override
@@ -39,10 +40,8 @@ public class MyEventListener extends ListenerAdapter {
   	public void onMessageReceived(MessageReceivedEvent event){
 
 		final User author = event.getAuthor(); // Variable author is the author of type User
-		if (author.isBot()){
-			System.out.println(author+": "+event.getMessage().getContentRaw());
+		if (author.isBot())
 			return; // If the event is made by the bot, ignore it
-		}
 
 		final Message message = event.getMessage(); // Variable message is the detected message
 		final String content = message.getContentRaw(); // Variable content is the text of the message
@@ -113,5 +112,17 @@ public class MyEventListener extends ListenerAdapter {
 		// Show available Elective roles
 		else if (content.toLowerCase().equals("!roles"))
 			ShowRoles.showRoles(guild, channel);
+
+		// Hit in blackjack
+		else if (content.toLowerCase().equalsIgnoreCase("!hit"))
+			BlackJackCommands.hit(author, channel);
+
+		// Stand in blackjack
+		else if (content.toLowerCase().equalsIgnoreCase("!stand"))
+			BlackJackCommands.stand(author, channel);
+
+		// Show hand in blackjack
+		else if (content.toLowerCase().equalsIgnoreCase("!hand"))
+			BlackJackCommands.myHand(author, channel);
 	}
 }
