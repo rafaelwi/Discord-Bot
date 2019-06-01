@@ -1,3 +1,8 @@
 # Files to Ignore
 build/*
-.gradle/*
+.gradle/* 
+*.class
+.classpath
+.project
+org.*
+bin/main/DiscordBot/.directory # Dolphin file
