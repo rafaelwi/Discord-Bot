@@ -26,8 +26,10 @@ public class MyEventListener extends ListenerAdapter {
 
 	@Override
 	public void onGuildMemberJoin(GuildMemberJoinEvent event){
-		guild.getTextChannelById(cfg.channel[0]).sendMessage("Welcome "+event.getUser().getAsMention()+
-		"feel free to ask any questions in #general!\nIf you want to play with our bot, go to #bots and say `!help` :smiley:").queue();
+		guild.getTextChannelById(cfg.channel[0]).sendMessage(("Welcome " + 
+		(event.getUser().getAsMention()) + "! Feel free to ask any " + 
+		"questions in <#486633949154770946>\nIf you want to play with our " + 
+		"bot, go to <#551828950871965696> and say `!help` :smiley:")).queue();
 	}
 
 	@Override
