@@ -1,33 +1,57 @@
-Version 1.9.1
+Version 2.1
 # Purpose
-Manage Computer Science Discord elective roles and channels and entertain users with games
+This is a Discord bot intended to provide entertainment to users of the
+University of Guelph Bachelor of Computer Science Discord server.
+
+# Features
+The initial purpose of the bot was to provide a method by which students taking the same
+electives could instantly create or join private message channels within the server
+via commands and help each other prepare for tests/assignments while keeping the server
+clutter-free for everyone else.
+
+The bot comes with a series of games, including black jack,
+Russian Roulette, and tic tac toe. These games reward users with a currency
+known as GryphCoins that can be spent on cosmetic changes to their profile.
+
+There is also a karma system, allowing users to upvote and downvote each
+other's messages based on productivity.
+
+Scorekeeping, karma data, and other information about how users interact with
+the bot is all stored on a MariaDB server hosted on Google Cloud Platform.
+Updates to the database are made using SQL instructions.
 
 # Commands
+### Moderators
+`!purge [# messages]` - Deletes a given number of messages.
+
 ### Anyone
-`!help` - displays other commands that can be used
 
-`!ping` - returns "pong!" and your latency in ms. Keeps track of user's best/worst scores
+`!bang` - Play Russian roulette.
 
-`!bang` - play Russian roulette
+`!bangscores` - Shows high scores for attempts, deaths, survival rate, and death rate.
 
-`!mybang` - shows player's bang scores
+`!bet`, `!hit`, `!stand` - Play blackjack against the computer.
 
-`!bangscore` or `!bangscores` - shows high scores for attempts, deaths, survival rate, and death rate
+`!daily` - Shows when player's daily reward resets.
 
-`!roles` - shows a list of available roles to join
+`!flip` - Flips a coin, displaying the result.
 
-`!join [role name]` - if the role already exists, it is assigned to the user. Else, the user's id and requested role are stored in a database. If enough users apply for the same role, the role and a private text channel are created and all applicants are assigned to it
+`!gift [@user] [# gc]` - Gifts a specified number of GryphCoins to a target user
 
-`!leave [role name]` - unassigns role from user and removes their application for that role from the database
+`!info [course ID]` - Shows relevant information about a specified course at UoGuelph.
 
-### Moderator+
-`!giverole [mentioned user] [role name]` - if the target is not a moderator, the role is assigned to the target  
+`!join [role name]` - If the role already exists, it is assigned to the user. Otherwise, the user's id and requested role are stored in a database. If enough users apply for the same role, the role and a private text channel are created and all applicants are assigned to it.
 
-`!takerole [mentioned user] [role name]` - same as `!giverole`, but removes the role
+`!help` - Displays other commands that can be used.
 
-### Owner only
-`!totalchatwipe` - clones current text channel and deletes the original (effectively wipes chat history)
+`!karma` - Shows user's upvotes, downvotes, and total karma
 
-`!cleanelectives` - deletes all text channels in the Electives category
+`!leave [role name]` - Unassigns the role from user and removes their application for that role from the database.
 
-`!cleanroles` - deletes all roles except Moderator and Verified Students
+`!market` and `!buy <item #>` - View and purchase items listed on the market
+
+`!mybang` - Shows player's bang scores.
+
+`!ping` - Returns "pong!" and your latency in ms. Keeps track of user's best/worst scores.
+
+`!roles` - Shows a list of available roles to join.
