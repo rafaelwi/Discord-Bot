@@ -20,6 +20,7 @@ default_img_path = '../../../../res/defaultGift.png'
 giver_img_path = '../../../../res/' + sys.argv[1].split('/')[-1]
 recieve_img_path = '../../../../res/' + sys.argv[2].split('/')[-1]
 giftbox_img_path = '../../../../res/giftbox.png'
+arrow_img_path = '../../../../res/arrow.png'
 
 # Get the images given from stdin. The script expects the giver's image URL
 # to be given first and the reciever's image URL to be given after. If for 
@@ -50,21 +51,23 @@ recieve_img_file = open(recieve_img_path, 'wb')
 recieve_img_file.write(recieve_img_request.content)
 recieve_img_file.close()
 
-# Now take the two images and combine them together using PIL
+# Now take the four images and combine them together using PIL
 gift_img = Image.new('RGBA', (300, 300), (255, 0, 0, 0))
 giver_img = Image.open(giver_img_path).resize((150, 150))
 recieve_img = Image.open(recieve_img_path).resize((150, 150))
 giftbox_img = Image.open(giftbox_img_path). resize((100, 100))
+arrow_img = Image.open(arrow_img_path).rotate(-35).resize((175, 100))
 
 # Create a circular mask for the giver and receiver
 mask = Image.new('L', (150, 150), 0)
 draw = ImageDraw.Draw(mask)
 draw.ellipse((0, 0) + (150, 150), fill=255)
 
-# Paste the three images together
+# Paste the four images together
 gift_img.paste(giver_img, (0, 0), mask)
 gift_img.paste(recieve_img, (150, 150), mask)
-gift_img.paste(giftbox_img, (100, 100), giftbox_img)
+gift_img.paste(arrow_img, (75, 75), arrow_img)
+gift_img.paste(giftbox_img, (75, 125), giftbox_img)
 
 # Delete the images that needed to be downloaded
 os.remove(giver_img_path)
