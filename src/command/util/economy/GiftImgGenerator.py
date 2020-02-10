@@ -14,6 +14,7 @@ Gift Image Generator by rafaelwi
 from PIL import Image, ImageDraw
 import requests
 import sys
+import os
 
 default_img_path = '../../../../res/defaultGift.png'
 giver_img_path = '../../../../res/' + sys.argv[1].split('/')[-1]
@@ -64,6 +65,10 @@ draw.ellipse((0, 0) + (150, 150), fill=255)
 gift_img.paste(giver_img, (0, 0), mask)
 gift_img.paste(recieve_img, (150, 150), mask)
 gift_img.paste(giftbox_img, (100, 100), giftbox_img)
+
+# Delete the images that needed to be downloaded
+os.remove(giver_img_path)
+os.remove(recieve_img_path)
 
 # Save the image and return its filename. It is the responsibility of the 
 # caller to delete the image once it it done with it.
